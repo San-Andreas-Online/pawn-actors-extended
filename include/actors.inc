@@ -20,7 +20,7 @@
 # if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 # endif
-#define _ACTORS_EXTENDED_VERSION "2.0.2"
+#define _ACTORS_EXTENDED_VERSION "2.0.3"
 
 #define MAX_ACTOR_NAME 24
 #define ACTOR_NAME_DRAW_DISTANCE (10.0)
@@ -91,7 +91,7 @@ stock static PreloadActorAnimations(actorid)
 {
 	for(new i = 0; i < sizeof(s_AnimationLibraries); i ++)
 	{
-	    ApplyActorAnimation(actorid, s_AnimationLibraries[i], "null", 0.0, false, false, false, false, 0);
+		ApplyActorAnimation(actorid, s_AnimationLibraries[i], "null", 0.0, false, false, false, false, 0);
 	}
 }
 
@@ -99,12 +99,13 @@ stock ResyncActor(actorid)
 {
 	if(IsValidActor(actorid))
 	{
-	    new
-	        Float:x,
-	        Float:y,
-	        Float:z,
-			worldid = GetActorVirtualWorld(actorid);
-	        
+		new
+			Float:x,
+			Float:y,
+			Float:z,
+			worldid = GetActorVirtualWorld(actorid)
+		;
+			
 		// Get the actor's position.
 		GetActorPos(actorid, x, y, z);
 		// Set their position and world to some arbitrary values.
@@ -131,14 +132,14 @@ public RespawnActor(actorid)
 {
 	if(IsValidActor(actorid))
 	{
-	    // Reset the timer variable if set.
-	    s_ActorRespawnTimer[actorid] = -1;
+		// Reset the timer variable if set.
+		s_ActorRespawnTimer[actorid] = -1;
 		s_ActorChatBubbleTimer[actorid] = -1;
-	    // Restore the actor's health.
-	    SetActorHealth(actorid, 100.0);
-	    // Clear the death animation.
-	    ClearActorAnimations(actorid);
-	    // Resync the actor.
+		// Restore the actor's health.
+		SetActorHealth(actorid, 100.0);
+		// Clear the death animation.
+		ClearActorAnimations(actorid);
+		// Resync the actor.
 		ResyncActor(actorid);
 		// Call "OnActorSpawn".
 		CallLocalFunction("OnActorSpawn", "i", actorid);
@@ -154,7 +155,7 @@ public DestroyChatBubble(actorid)
 	{
 		// Reset the variables.
 		ActorInfo[actorid][a_ChatBubbleCreated] = false;
-	    // Delete the 3D Text Label
+		// Delete the 3D Text Label
 		Delete3DTextLabel(ActorInfo[actorid][a_ChatBubble]);
 		// Reset the timer variable if set.
 		s_ActorChatBubbleTimer[actorid] = -1;
@@ -167,12 +168,12 @@ stock IsActorDead(actorid)
 {
 	if(IsValidActor(actorid))
 	{
-	    new
-	        Float:health;
+		new
+			Float:health;
 	
-	    // Get the actor's health.
-	    GetActorHealth(actorid, health);
-	    return (health <= 0.0);
+		// Get the actor's health.
+		GetActorHealth(actorid, health);
+		return (health <= 0.0);
 	}
 	return 0;
 }
@@ -181,10 +182,10 @@ stock SetActorRespawnTime(actorid, time)
 {
 	if(IsValidActor(actorid))
 	{
-	    if(s_ActorRespawnTimer[actorid] != -1)
-	    {
-	        // Kill any previously created timer.
-	        KillTimer(s_ActorRespawnTimer[actorid]);
+		if(s_ActorRespawnTimer[actorid] != -1)
+		{
+			// Kill any previously created timer.
+			KillTimer(s_ActorRespawnTimer[actorid]);
 		}
 		s_ActorRespawnTimer[actorid] = SetTimerEx("RespawnActor", time, false, "i", actorid);
 		return 1;
@@ -195,13 +196,14 @@ stock SetActorRespawnTime(actorid, time)
 stock IsPlayerInRangeOfActor(playerid, actorid, Float:radius = 5.0)
 {
 	new
-	    Float:x,
-	    Float:y,
-	    Float:z;
+		Float:x,
+		Float:y,
+		Float:z
+	;
 
 	if (GetActorPos(actorid, x, y, z))
 	{
-	    return IsPlayerInRangeOfPoint(playerid, radius, x, y, z) && GetPlayerVirtualWorld(playerid) == GetActorVirtualWorld(actorid);
+		return IsPlayerInRangeOfPoint(playerid, radius, x, y, z) && GetPlayerVirtualWorld(playerid) == GetActorVirtualWorld(actorid);
 	}
 	return 0;
 }
@@ -212,10 +214,11 @@ stock Text3D:Attach3DTextLabelToActor(actorid, text[], color, Float:fOffsetX, Fl
 
 	if(IsValidActor(actorid))
 	{
-	    new
+		new
 			Float:x,
 			Float:y,
-			Float:z;
+			Float:z
+		;
 
 		GetActorPos(actorid, x, y, z);
 		
@@ -237,9 +240,10 @@ stock SetActorName(actorid, name[])
 			Float:x,
 			Float:y,
 			Float:z,
-			worldid = GetActorVirtualWorld(actorid);
+			worldid = GetActorVirtualWorld(actorid)
+		;
 		GetActorPos(actorid, x, y, z);
-	    format(ActorInfo[actorid][a_Name],MAX_ACTOR_NAME,"%s",name);
+		format(ActorInfo[actorid][a_Name],MAX_ACTOR_NAME,"%s",name);
 		ActorInfo[actorid][a_ShowNameTag] = true;
 		if(ActorInfo[actorid][a_NameTagCreated] == false)
 		{
@@ -298,7 +302,8 @@ stock SetActorChatBubble(actorid, text[], color, Float:drawdistance, expiretime)
 			Float:x,
 			Float:y,
 			Float:z,
-			worldid = GetActorVirtualWorld(actorid);
+			worldid = GetActorVirtualWorld(actorid)
+		;
 
 		GetActorPos(actorid, x, y, z);
 		if(ActorInfo[actorid][a_ChatBubbleCreated] == false)
@@ -318,8 +323,7 @@ stock SetActorChatBubble(actorid, text[], color, Float:drawdistance, expiretime)
 
 stock AC_CreateActor(modelid, Float:x, Float:y, Float:z, Float:rotation)
 {
-	new
-	    actorid = INVALID_ACTOR_ID;
+	new actorid = INVALID_ACTOR_ID;
 
 	if(0 <= modelid <= 311)
 	{
@@ -327,14 +331,14 @@ stock AC_CreateActor(modelid, Float:x, Float:y, Float:z, Float:rotation)
 
 		if (actorid != INVALID_ACTOR_ID)
 		{
-		    // Reset the timer variable.
-		    s_ActorRespawnTimer[actorid] = -1;
+			// Reset the timer variable.
+			s_ActorRespawnTimer[actorid] = -1;
 			// Set Actor color to white
 			ActorInfo[actorid][a_Color]= 0xFFFFFFFF;
-		    // Preload their animations.
-		    PreloadActorAnimations(actorid);
-		    // Let them know that they've spawned.
-		    CallLocalFunction("OnActorSpawn", "i", actorid);
+			// Preload their animations.
+			PreloadActorAnimations(actorid);
+			// Let them know that they've spawned.
+			CallLocalFunction("OnActorSpawn", "i", actorid);
 		}
 	}
 	return actorid;
@@ -344,16 +348,16 @@ stock AC_DestroyActor(actorid)
 {
 	if(IsValidActor(actorid))
 	{
-	    for(new Text3D:i = Text3D:0; i < MAX_3DTEXT_GLOBAL; i++)
-	    {
-	        if(s_3DTextActorID[i] == actorid)
-	        {
-	            // Destroy the 3D text label.
-	            Delete3DTextLabel(Text3D:i);
+		for(new Text3D:i = Text3D:0; i < MAX_3DTEXT_GLOBAL; i++)
+		{
+			if(s_3DTextActorID[i] == actorid)
+			{
+				// Destroy the 3D text label.
+				Delete3DTextLabel(Text3D:i);
 				Delete3DTextLabel(ActorInfo[actorid][a_NameTag]);
 				Delete3DTextLabel(ActorInfo[actorid][a_ChatBubble]);
-	            // Reset the variables.
-	            s_3DTextActorID[i] = INVALID_ACTOR_ID;
+				// Reset the variables.
+				s_3DTextActorID[i] = INVALID_ACTOR_ID;
 				ActorInfo[actorid][a_NameTagCreated] = false;
 				ActorInfo[actorid][a_ChatBubbleCreated] = false;
 				ActorInfo[actorid][a_Color]= 0xFFFFFFFF;
@@ -368,8 +372,8 @@ stock AC_Delete3DTextLabel(Text3D:textid)
 {
 	if(textid != Text3D:INVALID_3DTEXT_ID)
 	{
-	    // Reset the variable.
-	    s_3DTextActorID[_:textid] = INVALID_ACTOR_ID;
+		// Reset the variable.
+		s_3DTextActorID[_:textid] = INVALID_ACTOR_ID;
 		return Delete3DTextLabel(textid);
 	}
 	return 0;
@@ -381,14 +385,14 @@ public OnPlayerUpdate(playerid)
 	
 	if (s_TargetActor[playerid] != target_actor)
 	{
-	    CallLocalFunction("OnPlayerTargetActor", "iii", playerid, target_actor, s_TargetActor[playerid]);
+		CallLocalFunction("OnPlayerTargetActor", "iii", playerid, target_actor, s_TargetActor[playerid]);
 	
-	    s_TargetActor[playerid] = target_actor;
+		s_TargetActor[playerid] = target_actor;
 	}
 	#if defined AC_OnPlayerUpdate
-	    return AC_OnPlayerUpdate(playerid);
+		return AC_OnPlayerUpdate(playerid);
 	#else
-	    return 1;
+		return 1;
 	#endif
 }
 
@@ -397,31 +401,30 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:w
 	// Sanity checks for safety. Players can easily manipulate this data.
 	if(!IsValidActor(damaged_actorid) || (!(0 <= amount <= 500.0)) || (!(WEAPON:0 <= weaponid <=  WEAPON:42)))
 	{
-	    return 0;
+		return 0;
 	}
 	else if(!IsActorInvulnerable(damaged_actorid))
 	{
-	    new
-	        Float:health;
-	        
+		new Float:health;
+			
 		// Deduct the damage from the actor, since it has to be done manually.
 		GetActorHealth(damaged_actorid, health);		
 		SetActorHealth(damaged_actorid, health - amount);
 		
 		if(health - amount < 1.0)
 		{
-		    // There's a bug where animations aren't cleared when an actor dies.
-		    ClearActorAnimations(damaged_actorid);
+			// There's a bug where animations aren't cleared when an actor dies.
+			ClearActorAnimations(damaged_actorid);
 			// Delete the chat bubble because the actor is dead. 
 			Delete3DTextLabel(ActorInfo[damaged_actorid][a_ChatBubble]);
-		    // Call the function to let them know they're dead.
-		    CallLocalFunction("OnActorDeath", "iii", damaged_actorid, playerid, weaponid);
+			// Call the function to let them know they're dead.
+			CallLocalFunction("OnActorDeath", "iii", damaged_actorid, playerid, weaponid);
 		}
 	}
 	#if defined AC_OnPlayerGiveDamageActor
-	    return AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, amount, weaponid, bodypart);
+		return AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, amount, weaponid, bodypart);
 	#else
-	    return 1;
+		return 1;
 	#endif
 }
 
