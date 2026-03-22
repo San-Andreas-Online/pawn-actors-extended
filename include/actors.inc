@@ -17,8 +17,10 @@
  *
  *  Creation date: May 8, 2015
 */
-
-#define _ACTORS_EXTENDED_VERSION "2.0.0"
+# if defined _ACTORS_EXTENDED_VERSION
+	#error Multiple inclusion of actors.inc
+# endif
+#define _ACTORS_EXTENDED_VERSION "2.0.1"
 
 #define MAX_ACTOR_NAME 24
 #define ACTOR_NAME_DRAW_DISTANCE (10.0)
