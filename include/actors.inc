@@ -20,23 +20,10 @@
 # if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 # endif
-#define _ACTORS_EXTENDED_VERSION "2.0.1"
+#define _ACTORS_EXTENDED_VERSION "2.0.2"
 
 #define MAX_ACTOR_NAME 24
 #define ACTOR_NAME_DRAW_DISTANCE (10.0)
-
-// Resynchronize an actor.
-forward ResyncActor(actorid);
-// Respawns an actor.
-forward RespawnActor(actorid);
-// Checks if the actor is dead.
-forward IsActorDead(actorid);
-// Sets an actor's respawn time (after death).
-forward SetActorRespawnTime(actorid, time);
-// Checks if a player is in range of an actor.
-forward IsPlayerInRangeOfActor(playerid, actorid, Float:radius = 5.0);
-// Attaches a 3D text label to an actor.
-forward Text3D:Attach3DTextLabelToActor(actorid, text[], color, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:distance = 10.0, worldid = 0, testlos = 0);
 
 // Called when an actor dies.
 forward OnActorDeath(actorid, killerid, reason);
