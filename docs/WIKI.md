@@ -27,8 +27,10 @@
       - [Example usage of ToggleActorName](#example-usage-of-toggleactorname)
     - [`SetActorChatBubble`](#setactorchatbubble)
       - [Example usage of SetActorChatBubble](#example-usage-of-setactorchatbubble)
-    - [DestroyChatBubble](#destroychatbubble)
+    - [`DestroyChatBubble`](#destroychatbubble)
       - [Example usage of DestroyChatBubble](#example-usage-of-destroychatbubble)
+    - [`KillActor`](#killactor)
+      - [Example usage of KillActor](#example-usage-of-killactor)
   - [🔄 CallBacks](#-callbacks)
     - [`OnActorDeath`](#onactordeath)
       - [Example usage of OnActorDeath](#example-usage-of-onactordeath)
@@ -268,7 +270,7 @@ new actorid = CreateActor(7, 100.0, 100.0, 10.0, 90.0);
 SetActorChatBubble(actorid, "Welcome!", 0xFFFFFFFF, 20.0, 5000);
 ```
 
-### DestroyChatBubble
+### `DestroyChatBubble`
 
 ```pawn
 DestroyChatBubble(actorid)
@@ -289,6 +291,27 @@ SetTimerEx("DestroyChatBubble", 3000, false, "i", actorid);
 
 > [!NOTE]
 > The `DestroyChatBubble` function is public because it needs to be called from a timer to remove the chat bubble after a certain duration. We recommend using `CallLocalFunction` if you want to call it immediately, to avoid potential issues with forward declarations.
+
+### `KillActor`
+
+```pawn
+KillActor(actorid, killerid = INVALID_PLAYER_ID, reason = 0)
+```
+
+> Kills an actor with an optional killer and reason.
+>
+> - **actorid**: The actor ID.
+> - **killerid**: The player ID of the killer (default `INVALID_PLAYER_ID` for no killer).
+> - **reason**: The weapon or death reason (default `0`).
+>
+> - **Returns**: `1` on success, `0` if the actor ID is invalid.
+
+#### Example usage of KillActor
+
+```pawn
+new actorid = CreateActor(7, 100.0, 100.0, 10.0, 90.0);
+KillActor(actorid, INVALID_PLAYER_ID, REASON_SUICIDE);
+```
 
 ## 🔄 CallBacks
 

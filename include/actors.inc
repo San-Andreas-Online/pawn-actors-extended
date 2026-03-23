@@ -20,7 +20,7 @@
 #if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 #endif
-#define _ACTORS_EXTENDED_VERSION "2.0.5"
+#define _ACTORS_EXTENDED_VERSION "2.0.6"
 
 #if !defined MAX_ACTOR_NAME
 	#define MAX_ACTOR_NAME 24
@@ -325,6 +325,20 @@ stock SetActorChatBubble(actorid, text[], color, Float:drawdistance, expiretime)
 	return 1;
 }
 
+stock KillActor(actorid, playerid = INVALID_PLAYER_ID, WEAPON:reason = REASON_SUICIDE)
+{
+	if(!IsValidActor(actorid)) return 0;
+	
+	// There's a bug where animations aren't cleared when an actor dies.
+	ClearActorAnimations(actorid);
+	// Delete the chat bubble because the actor is dead.
+	Delete3DTextLabel(ActorInfo[actorid][a_ChatBubble]);
+	// Call the function to let them know they're dead.
+	CallLocalFunction("OnActorDeath", "iii", actorid, playerid, reason);
+
+	return 1;
+}
+
 stock AC_CreateActor(modelid, Float:x, Float:y, Float:z, Float:rotation)
 {
 	new actorid = INVALID_ACTOR_ID;
@@ -415,15 +429,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:w
 		GetActorHealth(damaged_actorid, health);
 		SetActorHealth(damaged_actorid, health - amount);
 
-		if (health - amount < 1.0)
-		{
-			// There's a bug where animations aren't cleared when an actor dies.
-			ClearActorAnimations(damaged_actorid);
-			// Delete the chat bubble because the actor is dead.
-			Delete3DTextLabel(ActorInfo[damaged_actorid][a_ChatBubble]);
-			// Call the function to let them know they're dead.
-			CallLocalFunction("OnActorDeath", "iii", damaged_actorid, playerid, weaponid);
-		}
+		if (health - amount < 1.0) KillActor(damaged_actorid);
 	}
 	#if defined AC_OnPlayerGiveDamageActor
 	return AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, amount, weaponid, bodypart);
