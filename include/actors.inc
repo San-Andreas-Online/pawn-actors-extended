@@ -20,10 +20,14 @@
 #if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 #endif
-#define _ACTORS_EXTENDED_VERSION "2.0.4"
+#define _ACTORS_EXTENDED_VERSION "2.0.5"
 
-#define MAX_ACTOR_NAME 24
-#define ACTOR_NAME_DRAW_DISTANCE (10.0)
+#if !defined MAX_ACTOR_NAME
+	#define MAX_ACTOR_NAME 24
+#endif
+#if !defined ACTOR_NAME_DRAW_DISTANCE
+	#define ACTOR_NAME_DRAW_DISTANCE (10.0)
+#endif
 
 // Called when an actor dies.
 forward OnActorDeath(actorid, killerid, reason);
