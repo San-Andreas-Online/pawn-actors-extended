@@ -20,7 +20,7 @@
 #if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 #endif
-#define _ACTORS_EXTENDED_VERSION "2.0.6"
+#define _ACTORS_EXTENDED_VERSION "2.0.7"
 
 #if !defined MAX_ACTOR_NAME
 	#define MAX_ACTOR_NAME 24
@@ -483,5 +483,5 @@ forward AC_OnPlayerUpdate(playerid);
 #define OnPlayerGiveDamageActor AC_OnPlayerGiveDamageActor
 
 #if defined AC_OnPlayerGiveDamageActor
-forward AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, weaponid, bodypart);
+forward AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:weaponid, bodypart);
 #endif
