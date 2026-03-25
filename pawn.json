@@ -1,6 +1,7 @@
 {
 	"user": "San-Andreas-Online",
 	"repo": "pawn-actors-extended",
+	"include_path": "include",
 	"dependencies": [
 		"sampctl/samp-stdlib"
 	]
