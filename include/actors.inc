@@ -20,7 +20,7 @@
 #if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 #endif
-#define _ACTORS_EXTENDED_VERSION "2.0.8"
+#define _ACTORS_EXTENDED_VERSION "2.1.0"
 
 #if !defined MAX_ACTOR_NAME
 	#define MAX_ACTOR_NAME 24
@@ -147,7 +147,11 @@ public RespawnActor(actorid)
 		// Resync the actor.
 		ResyncActor(actorid);
 		// Call "OnActorSpawn".
-		CallLocalFunction("OnActorSpawn", "i", actorid);
+		#if defined ACTORS_MULTISCRIPT_ENABLED
+			CallRemoteFunction("OnActorSpawn", "i", actorid);
+		#else
+			CallLocalFunction("OnActorSpawn", "i", actorid);
+		#endif
 		return 1;
 	}
 	return 0;
@@ -335,7 +339,11 @@ stock KillActor(actorid, playerid = INVALID_PLAYER_ID, WEAPON:reason = REASON_SU
 	Delete3DTextLabel(ActorInfo[actorid][a_ChatBubble]);
 	// Call the function to let them know they're dead.
 	SetActorHealth(actorid, -1.0);
-	CallLocalFunction("OnActorDeath", "iii", actorid, playerid, reason);
+	#if defined ACTORS_MULTISCRIPT_ENABLED
+		CallRemoteFunction("OnActorDeath", "iii", actorid, playerid, reason);
+	#else
+		CallLocalFunction("OnActorDeath", "iii", actorid, playerid, reason);
+	#endif
 
 	return 1;
 }
@@ -357,7 +365,11 @@ stock AC_CreateActor(modelid, Float:x, Float:y, Float:z, Float:rotation)
 			// Preload their animations.
 			PreloadActorAnimations(actorid);
 			// Let them know that they've spawned.
-			CallLocalFunction("OnActorSpawn", "i", actorid);
+			#if defined ACTORS_MULTISCRIPT_ENABLED
+				CallRemoteFunction("OnActorSpawn", "i", actorid);
+			#else
+				CallLocalFunction("OnActorSpawn", "i", actorid);
+			#endif
 		}
 	}
 	return actorid;
@@ -404,7 +416,11 @@ public OnPlayerUpdate(playerid)
 
 	if (s_TargetActor[playerid] != target_actor)
 	{
-		CallLocalFunction("OnPlayerTargetActor", "iii", playerid, target_actor, s_TargetActor[playerid]);
+		#if defined ACTORS_MULTISCRIPT_ENABLED
+			CallRemoteFunction("OnPlayerTargetActor", "iii", playerid, target_actor, s_TargetActor[playerid]);
+		#else
+			CallLocalFunction("OnPlayerTargetActor", "iii", playerid, target_actor, s_TargetActor[playerid]);
+		#endif
 
 		s_TargetActor[playerid] = target_actor;
 	}

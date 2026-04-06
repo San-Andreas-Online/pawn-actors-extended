@@ -51,10 +51,11 @@
 
 ## Defines
 
-| Define                     | Description                              | Default value |
-| -------------------------- | ---------------------------------------- | ------------- |
-| `MAX_ACTOR_NAME`           | Maximum length of an actor's name.       | 24            |
-| `ACTOR_NAME_DRAW_DISTANCE` | Max distance to draw an actor's name tag | 10.0          |
+| Define                       | Description                                                                                        | Default value |
+| ---------------------------- | -----------------------------------------------------------------------------------------------    | ------------- |
+| `MAX_ACTOR_NAME`             | Maximum length of an actor's name.                                                                 | 24            |
+| `ACTOR_NAME_DRAW_DISTANCE`   | Max distance to draw an actor's name tag                                                           | 10.0          |
+| `ACTORS_MULTISCRIPT_ENABLED` | Will execute callbacks in all running scripts, not just the script that created the affected actor.| undefined     |
 
 ## ⚙️ Functions
 
