@@ -20,7 +20,7 @@
 #if defined _ACTORS_EXTENDED_VERSION
 	#error Multiple inclusion of actors.inc
 #endif
-#define _ACTORS_EXTENDED_VERSION "2.1.0"
+#define _ACTORS_EXTENDED_VERSION "2.1.1"
 
 #if !defined MAX_ACTOR_NAME
 	#define MAX_ACTOR_NAME 24
@@ -446,7 +446,7 @@ public OnPlayerGiveDamageActor(playerid, damaged_actorid, Float:amount, WEAPON:w
 		GetActorHealth(damaged_actorid, health);
 		SetActorHealth(damaged_actorid, health - amount);
 
-		if (health - amount < 1.0) KillActor(damaged_actorid);
+		if (health - amount < 1.0) KillActor(damaged_actorid, playerid, GetPlayerWeapon(playerid));
 	}
 	#if defined AC_OnPlayerGiveDamageActor
 	return AC_OnPlayerGiveDamageActor(playerid, damaged_actorid, amount, weaponid, bodypart);
