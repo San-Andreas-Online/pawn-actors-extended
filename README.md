@@ -13,6 +13,15 @@
 This script was originally made by Emmet, then updated by Admigo, and is now maintained by San Andreas Online. It adds a lot of new functions to manipulate actors in SA-MP/open.mp.  
 You can find the full list of functions and their documentation in [WIKI.md](docs/WIKI.md).
 
+<div align="center">
+
+If you like this project, consider supporting us!
+
+[![PayPal](https://img.shields.io/badge/paypal-One%20Time%20Donation-003087?style=flat&logo=paypal)](https://paypal.me/MichaelAceAnderson)
+[![Patreon](https://img.shields.io/badge/patreon-Subscription-FF424D?style=flat&logo=patreon)](https://www.patreon.com/posts/san-andreas-open-153811828)
+
+</div>
+
 ## Changelog
 
 All notable changes to this project will be documented in the [CHANGELOG.md](CHANGELOG.md) file.
